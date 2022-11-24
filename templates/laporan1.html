@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-header">
+  <h3 class="page-title"> table </h3>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Tables</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Basic tables</li>
+    </ol>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title"> Tampilkan Laporan DI sini <a class="btn btn-danger" href="{% url 'laporan_tambah' %}">+tambah</a> </h4>
+        {% comment %} <p class="card-description"> table hasil laporan <code>.table-dark</code> {% endcomment %}
+        </p>
+        <div class="table-responsive">
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th> NO </th>
+                <th> Nama </th>
+                <th> Kode Kasir </th>
+                <th> date </th>
+                <th> file </th>
+                <th> Action </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in table  %}
+              <tr>
+                <td> {{forloop.counter}} </td>
+                <td> {{a.nama}}</td>
+                <td> {{a.kode_kasir}} </td>
+                <td> {{a.date}} </td>
+                <td> 
+                  {% if a.upload_file %}
+                  <a class="btn btn-warning" href="{{ a.upload_file.url }}">download</a> 
+                  {% endif %}
+                </td>
+                <td>
+                  <a class="btn btn-sm btn-danger" href ="{% url 'laporan_update' a.id %}">update</a>
+                  <a onclick="return confirm ('delete file ?');" class="btn btn-sm btn-danger" href ="#">delete</a>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content%}
